@@ -28,7 +28,7 @@
             <stddev>0.002</stddev>
           </noise>
         </camera>
-        <plugin name="${name}_frame_controller" filename="libgazebo_ros_depth_camera.so">
+        <!-- <plugin name="${name}_frame_controller" filename="libgazebo_ros_depth_camera.so">
           <updateRate>${color_fps}</updateRate>
           <cameraName>${name}</cameraName>
           <frameName>${name}_color_optical_frame</frameName>
@@ -37,6 +37,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloud>true</pointCloud>
           <pointCloudCutoff>0.2</pointCloudCutoff>
           <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
           <distortionK1>0.0</distortionK1>
@@ -48,7 +49,35 @@
           <Cx>0.0</Cx>
           <Cy>0.0</Cy>
           <focalLength>0.0</focalLength>
+        </plugin> -->
+
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <alwaysOn>true</alwaysOn>
+          <baseline>0.2</baseline>
+          <!-- Keep this zero, update_rate in the parent <sensor> tag
+            will control the frame rate. -->
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}</cameraName>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloud>true</pointCloud>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <pointCloudCutoff>0.2</pointCloudCutoff>
+          <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
+          <frameName>${name}_color_optical_frame</frameName>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <CxPrime>0.0</CxPrime>
+          <Cx>0.0</Cx>
+          <Cy>0.0</Cy>
+          <focalLength>0.0</focalLength>
         </plugin>
+        
       </sensor>
       <!-- ToDo: add plugins for IMU, Fisheye, IR -->
       <material>IPA/LightGrey</material>
@@ -56,4 +85,3 @@
   </xacro:macro>
 
 </robot>
-
